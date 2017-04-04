@@ -6,22 +6,9 @@
   <name>angregator-name</name>
   <packaging>pom</packaging>
   <modules>
-  	<module>test-hibernate</module>
-  	<module>test-springdata</module>
-  	<module>test-util</module>
-  	<module>test-workflow</module>
-  	<module>test-web</module>
-  	<module>test-atomikos</module>
-  	<module>test-tcc-api</module>
-  	<module>test-tcc-provider</module>
-  	<module>test-tcc-consumer</module>
-  	<module>test-kafka</module>
-  	<module>test-shiro</module>
-  	<module>test-storm</module>
   	<module>test-distribute-api</module>
   	<module>test-distribute-provider</module>
   	<module>test-distribute-consumer</module>
-  	<module>test-modeler</module>
   </modules>
   
   <repositories>
