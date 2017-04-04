@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 定时任务类 -->
+    <bean id="customTimer" class="com.sys.time.CustomTimer" />
+
+	<!-- 定时器配置 -->
+	<bean id="timeDitail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="customTimer"/> <!-- 定时任务类 -->
+		<property name="targetMethod" value="execute" /> <!-- 定时任务方法 -->
+	</bean>
+	
+	<!-- 定义时间间隔出发器 -->
+	<!-- <bean id="timeTigger" class="org.springframework.scheduling.quartz.CronTriggerBean"> --> <!-- quartz 1.x -->
+	<bean id="timeTigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> <!-- quartz 2.x 以上修改了API -->
+		<property name="jobDetail" ref="timeDitail"/>
+		<property name="cronExpression" value="*/5 * * * * ?" />
+	</bean>
+	
+	<!-- 配置启动定时器 -->
+	<bean id="startJob" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="timeTigger"/>
+			</list>
+		</property>
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
